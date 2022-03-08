@@ -13,7 +13,6 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
             RuleFor(createBookCommand =>
                 createBookCommand.Genre).NotEmpty().NotNull();
         }
-
-
+        
     }
 }

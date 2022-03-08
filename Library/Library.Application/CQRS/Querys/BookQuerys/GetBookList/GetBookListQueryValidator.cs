@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
 {
-    public class GetBookListQueryValidator
+    public class GetBookListQueryValidator : AbstractValidator<GetBookListQuery>
     {
-
+        public GetBookListQueryValidator() { }
     }
 }

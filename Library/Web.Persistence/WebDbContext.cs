@@ -15,7 +15,8 @@ namespace Web.Persistence
         {
         }
 
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Human> Humans { get ; set ; }
+        public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Human> Humans { get ; set ; }
+
     }
 }

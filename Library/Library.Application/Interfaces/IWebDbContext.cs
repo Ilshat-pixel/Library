@@ -10,6 +10,7 @@ namespace Library.Application.Interfaces
 
         DbSet<Book> Books { get; set; }
         DbSet<Human> Humans { get; set; }
+        DbSet<LibraryCard> LibraryCards { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

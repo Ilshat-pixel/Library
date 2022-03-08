@@ -5,6 +5,9 @@ using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using Library.Application.CQRS.Commands.BookCommands.DeleteBook;
+using Library.API.Controllers.Models.Book;
+using Library.Application.CQRS.Commands.BookCommands.CreateBook;
 
 namespace Library.API.Controllers
 {
@@ -19,6 +22,11 @@ namespace Library.API.Controllers
         {
             _mapper = mapper;
             _memoryCache = memoryCache;
+        }
+        [HttpGet]
+        public async Task<ActionResult> Index()
+        {
+           var s =  DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz ");
         }
         [HttpGet("{authorId}")]
         public async Task<ActionResult<BookListVm>> GetAll(int? authorId)
@@ -42,5 +50,25 @@ namespace Library.API.Controllers
             return Ok(cacheValue);
 
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete (int id)
+        {
+            var command = new DeleteBookCommand
+            {
+                Id = id
+            };
+            await Mediator.Send(command);       
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Create([FromBody] CreateBookDto createBookDto)
+        {
+            var command = _mapper.Map<CreateBookCommand>(createBookDto);
+            var bookId = await Mediator.Send(command);
+            return Ok(bookId);
+        }
+
     }
 }
