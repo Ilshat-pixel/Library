@@ -27,10 +27,15 @@ namespace Library.Application.CQRS.Commands.BookCommands.UpdateBook
             var author = await _webDbContext.Humans.FindAsync(new object[] { request.AuthorId }, cancellationToken);
             if (author == null)
             {
-                throw new NotFoundException(nameof(Human), request.Id);
+                throw new NotFoundException(nameof(Human), request.AuthorId);
+            }
+            var genre = await _webDbContext.Genres.FindAsync(new object[] { request.GenreId }, cancellationToken);
+            if(genre == null)
+            {
+                throw new NotFoundException(nameof(Genre), request.GenreId);
             }
             book.Author = author;
-            book.Genre = request.Genre;
+            book.Genre = genre;
             book.Title = request.Title;
             await _webDbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

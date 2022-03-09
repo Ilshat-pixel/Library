@@ -26,10 +26,15 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
             {
                 throw new NotFoundException(nameof(Human), request.AuthorId);
             }
+            var genre = await _dbContext.Genres.FindAsync(new object[] { request.GenreId }, cancellationToken);
+            if (genre == null)
+            {
+                throw new NotFoundException(nameof(Genre), request.GenreId);
+            }
             var book = new Book
             {
                 Author = author,
-                Genre = request.Genre,
+                Genre = genre,
                 Title = request.Title
             };
             await _dbContext.Books.AddAsync(book, cancellationToken);

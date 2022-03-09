@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Library.Application.Common;
+using Library.Application.Common.Behaviours;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -14,8 +14,11 @@ this IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
+            services.AddMemoryCache();
             services.AddTransient(typeof(IPipelineBehavior<,>),
                 typeof(ValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>),
+                typeof(CachingBehaviour<,>));
             return services;
         }
     }

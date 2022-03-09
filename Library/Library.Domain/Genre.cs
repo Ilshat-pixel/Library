@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace Library.Domain
 {
-    public class LibraryCard
+    public  class Genre
     {
         [Key]
         public int Id { get; set; }
-        public Human Human { get; set; }
-        public Book Book { get; set; }
-        public DateTimeOffset DateOfIssue { get; set; }
-
+        public string Name { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

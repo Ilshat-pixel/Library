@@ -23,31 +23,24 @@ namespace Library.API.Controllers
             _mapper = mapper;
             _memoryCache = memoryCache;
         }
-        [HttpGet]
-        public async Task<ActionResult> Index()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <param name="bookName"></param>
+        /// <param name="bookGenre"></param>
+        /// <returns></returns>
+        [HttpGet("{authorId}/{bookName}/{bookGenre}")]
+        public async Task<ActionResult<BookListVm>> GetAll(int? authorId, string bookName, string bookGenre)
         {
-           var s =  DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz ");
-        }
-        [HttpGet("{authorId}")]
-        public async Task<ActionResult<BookListVm>> GetAll(int? authorId)
-        {
-            //TODO: Разобраться как правильно подбирать ключи
-            // TODO: понять почему в ретурне могу вызвать cacheValue
-            var key = "AllBooks";
-            if (!_memoryCache.TryGetValue(key, out BookListVm cacheValue))
-            {
-                var query = new GetBookListQuery { };
+         
+                var query = new GetBookListQuery(authorId) {};
                 var vm = await Mediator.Send(query);
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                       .SetSlidingExpiration(TimeSpan.FromMinutes(5));
-                _memoryCache.Set(key, vm, cacheEntryOptions);
-            }
-            if (authorId != null)
-            {
-                return Ok(cacheValue.Books.Where(x => x.Author.Id == authorId).FirstOrDefault());
-            }
 
-            return Ok(cacheValue);
+            
+          
+
+            return Ok(vm);
 
         }
 

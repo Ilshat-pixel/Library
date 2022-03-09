@@ -7,7 +7,6 @@ namespace Library.API.Controllers.Models.Human
 {
     public class CreateHumanDto:IMapWith<CreateHumanCommand>
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }

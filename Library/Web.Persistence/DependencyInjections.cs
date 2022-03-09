@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Web.Persistence
+namespace Library.Persistence
 {
     public static class DependencyInjections
     {

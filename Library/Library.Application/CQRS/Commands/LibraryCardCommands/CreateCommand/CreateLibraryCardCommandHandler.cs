@@ -21,18 +21,21 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand
         public async Task<int> Handle(CreateLibraryCardCommand request, CancellationToken cancellationToken)
         {
             var human = await _webDbContext.Humans.FindAsync(new object[] { request.HumanId }, cancellationToken);
+
             if (human == null)
             {
                 throw new NotFoundException(nameof(Human), request.HumanId);
             }
+
             var libraryCard = new LibraryCard
             {
-                DateOfIssue = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz "),
+                DateOfIssue = DateTimeOffset.Now,
                 Human = human
-
             };
+
             await _webDbContext.LibraryCards.AddAsync(libraryCard,cancellationToken);
             await _webDbContext.SaveChangesAsync(cancellationToken);
+
             return libraryCard.Id;
         }
     }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.Persistence
+namespace Library.Persistence
 {
     public class WebDbContext : DbContext, IWebDbContext
     {
@@ -15,8 +15,9 @@ namespace Web.Persistence
         {
         }
 
-        public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<Human> Humans { get ; set ; }
-
+        public  DbSet<Book> Books { get; set; }
+        public  DbSet<Human> Humans { get ; set ; }
+        public DbSet<LibraryCard> LibraryCards { get ; set; }
+        public DbSet<Genre> Genres { get ; set; }
     }
 }

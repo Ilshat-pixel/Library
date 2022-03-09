@@ -11,7 +11,7 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
             RuleFor(createBookCommand =>
                 createBookCommand.AuthorId).NotNull().NotEmpty();
             RuleFor(createBookCommand =>
-                createBookCommand.Genre).NotEmpty().NotNull();
+                createBookCommand.GenreId).NotEmpty().NotNull();
         }
         
     }
