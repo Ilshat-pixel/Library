@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Library.Persistence;
+using Library.API.Middleware;
+using Library.API.Filters;
 
 namespace Library.API
 {
@@ -35,7 +37,16 @@ namespace Library.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Library.API", Version = "v1" });
+                //  c.OperationFilter<AuthorizationFilter>();
+          
             });
         }
 
@@ -47,17 +58,20 @@ namespace Library.API
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Library.API v1"));
-                app.UseHttpsRedirection();
+            }
+            
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseMiddleware<BasicAuthMiddleware>();
+            app.UseMiddleware<RequestResponseLoggingMiddleware>();
+            app.UseAuthorization();
 
-                app.UseRouting();
-
-                app.UseAuthorization();
-
+           //     app.UseMiddleware<BasicAuthMiddleware>();
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
                 });
             }
-        }
+        
     }
 }

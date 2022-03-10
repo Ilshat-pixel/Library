@@ -19,27 +19,23 @@ namespace Library.API.Middleware
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            var authorization = context.Request.Headers["Authorization"];
-            if (authorization.Count == 0)
+            string authorization = context.Request.Headers["Authorization"];
+            if (authorization != null)
             {
-                throw new HttpStatusException(HttpStatusCode.Unauthorized, "You should pass Authorization header");
-            }
-            var credentials = authorization.ToString().Split(':');
-            try
-            {
-                var username = credentials[0] ?? "";
-                var password = credentials[1] ?? "";
-                if (username != "admin" && password != "admin")
+                if (authorization == "Basic admin:admin")
                 {
-                    throw new HttpStatusException(HttpStatusCode.BadRequest, "Invalid authorization login or password");
+                    await _next(context);
+                }
+                else
+                {
+                    context.Response.StatusCode = 401;
                 }
             }
-            catch (Exception)
+            else
             {
-
-                throw new HttpStatusException(HttpStatusCode.BadRequest, "Cannot parse authorization header");
+                context.Response.StatusCode = 401;
+                return;
             }
-            await _next.Invoke(context);
         }
     }
 }

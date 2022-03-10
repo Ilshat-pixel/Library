@@ -18,37 +18,23 @@ namespace Library.API.Controllers
     public class HumanController:BaseController
     {
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _memoryCache;
-        public HumanController(IMapper mapper, IMemoryCache memoryCache)
+        public HumanController(IMapper mapper)
         {
             _mapper = mapper;
-            _memoryCache = memoryCache;
         }
-        [HttpGet("{isAuthor}/{searchString}")]
-        public async Task<ActionResult<HumanListVm>> GetAll(bool? isAuthor, string searchString)
+        [HttpGet]
+        public async Task<ActionResult<HumanListVm>> GetAll([FromQuery]bool? isAuthor, string searchString)
         {
-            //TODO: Разобраться как правильно подбирать ключи
-            // TODO: понять почему в ретурне могу вызвать cacheValue
-            var key = "AllHumans";
-            if (!_memoryCache.TryGetValue(key, out HumanListVm cacheValue))
-            {
-                var query = new GetHumanListQuery { };
+                var query = new GetHumanListQuery
+                {
+                IsAuthor = isAuthor,
+                SearchString = searchString,
+                CacheKey = $"{isAuthor}/{searchString}"
+                };
                 var vm = await Mediator.Send(query);
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                       .SetSlidingExpiration(TimeSpan.FromMinutes(5));
-                _memoryCache.Set(key, vm, cacheEntryOptions);
-            }
-            var humans = cacheValue.Humans;
-            if(isAuthor == true)
-            {
-             humans = humans.Where(h => h.Books.Count() > 0).ToList();
-            }
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                humans = humans.Where(h=>(h.Name.ToLower()+h.Surname.ToLower()+h.Patronymic.ToLower()).Contains(searchString.ToLower())).ToList();
-            }
+
         
-            return Ok(humans);
+            return Ok(vm);
 
         }
 

@@ -30,17 +30,19 @@ namespace Library.API.Controllers
         /// <param name="bookName"></param>
         /// <param name="bookGenre"></param>
         /// <returns></returns>
-        [HttpGet("{authorId}/{bookName}/{bookGenre}")]
-        public async Task<ActionResult<BookListVm>> GetAll(int? authorId, string bookName, string bookGenre)
+        [HttpGet]
+        public async Task<ActionResult<BookListVm>> GetAll([FromQuery]int? authorId=null, string bookName=null, string bookGenre=null)
         {
          
-                var query = new GetBookListQuery(authorId) {};
+                var query = new GetBookListQuery {
+                AuthorId =authorId,
+                BookGenre = bookGenre,
+                BookName = bookName,
+                CacheKey = $"{authorId}/{bookGenre}/{bookName}"
+                };
                 var vm = await Mediator.Send(query);
 
-            
-          
-
-            return Ok(vm);
+                return Ok(vm);
 
         }
 

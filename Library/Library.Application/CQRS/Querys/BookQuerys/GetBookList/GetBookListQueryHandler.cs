@@ -26,10 +26,22 @@ namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
        
         public async Task<BookListVm> Handle(GetBookListQuery request, CancellationToken cancellationToken)
         {
-            var bookQuery = await _webDbContext.Books
+            //TODO: понять как не преобразовывать каждый раз в список
+            var bookQuery = await _webDbContext.Books.Include(x=>x.Author).Include(x=>x.Genre)
                  .ProjectTo<BookLookupDto>(_mapper.ConfigurationProvider)
                  .ToListAsync(cancellationToken);
-
+            if (request.AuthorId != null)
+            {
+                bookQuery =  bookQuery.Where(b => b.Author.Id == request.AuthorId).ToList();
+            }
+            if (!String.IsNullOrWhiteSpace(request.BookGenre))
+            {
+                bookQuery = bookQuery.Where(b => b.Genre.Name == request.BookGenre).ToList();
+            }
+            if (!String.IsNullOrWhiteSpace(request.BookName))
+            {
+                bookQuery = bookQuery.Where(b => b.Title == request.BookName).ToList();
+            }
             return new BookListVm{ Books = bookQuery };
         }
     }
