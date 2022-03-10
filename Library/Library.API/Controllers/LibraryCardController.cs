@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.API.Controllers
 {
+    [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     public class LibraryCardController:BaseController
@@ -16,6 +17,11 @@ namespace Library.API.Controllers
         {
             _mapper = mapper;
         }
+        /// <summary>
+        /// Добавляет новую картолчку
+        /// </summary>
+        /// <param name="libraryCardDto">Модель для созадния карточки</param>
+        /// <returns>ID  карточки</returns>
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromBody] LibraryCardDto libraryCardDto)
         {

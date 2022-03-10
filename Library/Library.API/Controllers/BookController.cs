@@ -11,6 +11,7 @@ using Library.Application.CQRS.Commands.BookCommands.CreateBook;
 
 namespace Library.API.Controllers
 {
+    [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     public class BookController:BaseController
@@ -24,12 +25,18 @@ namespace Library.API.Controllers
             _memoryCache = memoryCache;
         }
         /// <summary>
-        /// 
+        /// Возрашает список книг, а так же выполняет фильтрацию
         /// </summary>
-        /// <param name="authorId"></param>
-        /// <param name="bookName"></param>
-        /// <param name="bookGenre"></param>
-        /// <returns></returns>
+        /// <remarks>
+        /// GEt
+        /// /5/Тутназваниекниги/Тутжанркниги
+        /// </remarks>
+        /// <param name="authorId">Параметр который, используется для поиска по автору</param>
+        /// <param name="bookName">Параметр который, используется для поиска по название книги </param>
+        /// <param name="bookGenre">Параметр который, используется для поиска по жанру книги</param>
+        /// <returns>Возращает список книг</returns>
+        /// <response code="200">Успешно</response>
+        /// <response code="401">Если ключ в headers оказался не верен</response> 
         [HttpGet]
         public async Task<ActionResult<BookListVm>> GetAll([FromQuery]int? authorId=null, string bookName=null, string bookGenre=null)
         {
@@ -45,7 +52,16 @@ namespace Library.API.Controllers
                 return Ok(vm);
 
         }
-
+        /// <summary>
+        /// Удаляет книгу из Бд
+        /// </summary>
+        /// <remarks>
+        /// Пример запроса
+        /// Get /5
+        /// </remarks>
+        /// <param name="id">Id книги для удаления</param>
+        /// <returns>yНичего не возрашает</returns>
+        /// <response code="401">Если ключ в headers оказался не верен</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete (int id)
         {
@@ -57,10 +73,10 @@ namespace Library.API.Controllers
             return NoContent();
         }
         /// <summary>
-        /// 
+        /// Создает новую книгу
         /// </summary>
-        /// <param name="createBookDto"></param>
-        /// <returns></returns>
+        /// <param name="createBookDto">Dto для создания книги</param>
+        /// <returns>Возращает Id книги</returns>
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromBody] CreateBookDto createBookDto)
         {

@@ -27,7 +27,7 @@ namespace Library.API.Controllers
         /// Пример запроса
         /// Get /true/Alexey
         /// </remarks>
-        /// <param name="isAuthor">Выводит людей, которые являются авторами</param>
+        /// <param name="isAuthor">Проверяет является ли  человек автором</param>
         /// <param name="searchString">Выполняет поиск в имени, фамилии и отчестве</param>
         /// <returns>Возращает список людей</returns>
         /// <response code="200">Успешно</response>
@@ -45,12 +45,21 @@ namespace Library.API.Controllers
                 };
                 var vm = await Mediator.Send(query);
 
-        
             return Ok(vm);
 
         }
-
+        /// <summary>
+        /// Удаляет человека из Бд
+        /// </summary>
+        /// <remarks>
+        /// Пример запроса
+        /// Get /5
+        /// </remarks>
+        /// <param name="id">Id человека для удаления</param>
+        /// <returns>yНичего не возрашает</returns>
+        /// <response code="401">Если ключ в headers оказался не верен</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete(int id)
         {
             var command = new DeleteHumanCommand
@@ -61,10 +70,12 @@ namespace Library.API.Controllers
             return NoContent();
         }
         /// <summary>
-        /// 
+        /// Создает нового человека
         /// </summary>
-        /// <param name="createHumanDto"></param>
-        /// <returns></returns>
+        /// <param name="createHumanDto">Dto для создания человека</param>
+        /// <returns>Id нового человека</returns>
+        /// <response code="200">Успешно</response>
+        /// <response code="401">Если ключ в headers оказался не верен</response> 
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromBody] CreateHumanDto createHumanDto)
         {
