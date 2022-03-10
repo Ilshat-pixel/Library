@@ -56,7 +56,11 @@ namespace Library.API.Controllers
             await Mediator.Send(command);       
             return NoContent();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="createBookDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromBody] CreateBookDto createBookDto)
         {

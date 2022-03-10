@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Library.API.Controllers.Models.Book
 {
+    /// <summary>
+    /// 1.2.2 Класс презентующий книгу
+    /// </summary>
     public class CreateBookDto:IMapWith<CreateBookCommand>
     {
     

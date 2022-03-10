@@ -5,6 +5,9 @@ using System;
 
 namespace Library.API.Controllers.Models.Human
 {
+    /// <summary>
+    /// 1.2.1 Класс презентующий человека
+    /// </summary>
     public class CreateHumanDto:IMapWith<CreateHumanCommand>
     {
         public string Name { get; set; }
