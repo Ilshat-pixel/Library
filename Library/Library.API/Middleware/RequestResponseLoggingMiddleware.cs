@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.API.Middleware
@@ -26,7 +22,7 @@ namespace Library.API.Middleware
                 startTime = DateTimeOffset.Now;
                 await _next(context);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.LogInformation(e.Message);
             }
@@ -35,8 +31,8 @@ namespace Library.API.Middleware
                 _logger.LogInformation($"Method:{context.Request.Method} \n startTime:{startTime} \n endTime:{DateTimeOffset.Now}");
             }
 
-            }
         }
-
-
     }
+
+
+}

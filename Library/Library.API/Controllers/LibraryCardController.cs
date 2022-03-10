@@ -9,7 +9,7 @@ namespace Library.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
-    public class LibraryCardController:BaseController
+    public class LibraryCardController : BaseController
     {
         private readonly IMapper _mapper;
 

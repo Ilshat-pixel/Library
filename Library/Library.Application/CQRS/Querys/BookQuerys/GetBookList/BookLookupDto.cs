@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using Library.Application.Interfaces;
 using Library.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
 {
-    public class BookLookupDto:IMapWith<Book>
+    public class BookLookupDto : IMapWith<Book>
     {
         public int Id { get; set; }
         public string Title { get; set; }

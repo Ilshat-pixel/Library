@@ -3,13 +3,10 @@ using Library.Application.Interfaces;
 using Library.Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Application.CQRS.Querys.HumanQuerys.GetHumanList
 {
-    public class HumanLookupDto:IMapWith<Human>
+    public class HumanLookupDto : IMapWith<Human>
     {
         public int Id { get; set; }
         public string Name { get; set; }

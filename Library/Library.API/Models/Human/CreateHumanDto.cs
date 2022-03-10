@@ -8,13 +8,13 @@ namespace Library.API.Controllers.Models.Human
     /// <summary>
     /// 1.2.1 Класс презентующий человека
     /// </summary>
-    public class CreateHumanDto:IMapWith<CreateHumanCommand>
+    public class CreateHumanDto : IMapWith<CreateHumanCommand>
     {
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
         public DateTime Birthday { get; set; }
-        
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateHumanDto, CreateHumanCommand>()
@@ -28,7 +28,7 @@ namespace Library.API.Controllers.Models.Human
                 opt => opt.MapFrom(humanDto => humanDto.Patronymic))
                 .ForMember(humanCommand => humanCommand.Birthday,
                 opt => opt.MapFrom(humanDto => humanDto.Birthday));
-              
+
         }
 
     }

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Library.Application.Common.Behaviours
 {
-    public class CachingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>,ICacheable
-     
+    public class CachingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>, ICacheable
+
     {
         private readonly IMemoryCache _cache;
         private readonly ILogger<CachingBehaviour<TRequest, TResponse>> _logger;
@@ -35,7 +35,7 @@ namespace Library.Application.Common.Behaviours
             response = await next();
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromMinutes(5));
-            _cache.Set(request.CacheKey, response,cacheEntryOptions);
+            _cache.Set(request.CacheKey, response, cacheEntryOptions);
             return response;
         }
     }

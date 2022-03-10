@@ -4,15 +4,13 @@ using Library.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Library.Application.CQRS.Querys.HumanQuerys.GetHumanList
 {
-    public class GetHumanListQueryHandler:IRequestHandler<GetHumanListQuery,HumanListVm>
+    public class GetHumanListQueryHandler : IRequestHandler<GetHumanListQuery, HumanListVm>
     {
         private readonly IWebDbContext _webDbContext;
         private readonly IMapper _mapper;
@@ -25,7 +23,7 @@ namespace Library.Application.CQRS.Querys.HumanQuerys.GetHumanList
 
         public async Task<HumanListVm> Handle(GetHumanListQuery request, CancellationToken cancellationToken)
         {
-            var humanQuery = await _webDbContext.Humans.Include(h=>h.Books)
+            var humanQuery = await _webDbContext.Humans.Include(h => h.Books)
                 .ProjectTo<HumanLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
             if (request.IsAuthor == true)

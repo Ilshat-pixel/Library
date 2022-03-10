@@ -1,10 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
 
 namespace Library.API.Filters
 {
@@ -19,9 +15,9 @@ namespace Library.API.Filters
             }
             operation.Parameters.Add(new OpenApiParameter
             {
-                Name= "Authorization",
-                In=ParameterLocation.Header,
-                Description="Basic admin:admin",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Description = "Basic admin:admin",
                 Required = false,
                 Schema = new OpenApiSchema { Type = "string" }
             });

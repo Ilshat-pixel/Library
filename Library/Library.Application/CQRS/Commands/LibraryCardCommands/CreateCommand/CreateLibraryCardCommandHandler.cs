@@ -3,7 +3,6 @@ using Library.Application.Interfaces;
 using Library.Domain;
 using MediatR;
 using System;
-using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,7 +32,7 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand
                 Human = human
             };
 
-            await _webDbContext.LibraryCards.AddAsync(libraryCard,cancellationToken);
+            await _webDbContext.LibraryCards.AddAsync(libraryCard, cancellationToken);
             await _webDbContext.SaveChangesAsync(cancellationToken);
 
             return libraryCard.Id;

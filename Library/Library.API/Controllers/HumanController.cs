@@ -12,7 +12,7 @@ namespace Library.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
-    public class HumanController:BaseController
+    public class HumanController : BaseController
     {
         private readonly IMapper _mapper;
         public HumanController(IMapper mapper)
@@ -35,15 +35,15 @@ namespace Library.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<HumanListVm>> GetAll([FromQuery]bool? isAuthor, string searchString)
+        public async Task<ActionResult<HumanListVm>> GetAll([FromQuery] bool? isAuthor, string searchString)
         {
-                var query = new GetHumanListQuery
-                {
+            var query = new GetHumanListQuery
+            {
                 IsAuthor = isAuthor,
                 SearchString = searchString,
                 CacheKey = $"{isAuthor}/{searchString}"
-                };
-                var vm = await Mediator.Send(query);
+            };
+            var vm = await Mediator.Send(query);
 
             return Ok(vm);
 

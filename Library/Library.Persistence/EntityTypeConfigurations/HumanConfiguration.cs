@@ -8,12 +8,12 @@ namespace Library.Persistence.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Human> builder)
         {
-            builder.HasKey(h=>h.Id);
+            builder.HasKey(h => h.Id);
             builder.HasIndex(h => h.Id);
-            builder.HasMany(h=>h.Books)
-                .WithOne(b=>b.Author).OnDelete(DeleteBehavior.SetNull);
-            builder.HasMany(h=>h.LibraryCards)
-                .WithOne(c=>c.Human).OnDelete(DeleteBehavior.SetNull);
+            builder.HasMany(h => h.Books)
+                .WithOne(b => b.Author).OnDelete(DeleteBehavior.SetNull);
+            builder.HasMany(h => h.LibraryCards)
+                .WithOne(c => c.Human).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

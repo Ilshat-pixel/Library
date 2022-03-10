@@ -30,7 +30,7 @@ namespace Library.Application.CQRS.Commands.BookCommands.UpdateBook
                 throw new NotFoundException(nameof(Human), request.AuthorId);
             }
             var genre = await _webDbContext.Genres.FindAsync(new object[] { request.GenreId }, cancellationToken);
-            if(genre == null)
+            if (genre == null)
             {
                 throw new NotFoundException(nameof(Genre), request.GenreId);
             }

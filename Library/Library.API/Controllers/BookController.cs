@@ -1,20 +1,18 @@
 ﻿using AutoMapper;
+using Library.API.Controllers.Models.Book;
+using Library.Application.CQRS.Commands.BookCommands.CreateBook;
+using Library.Application.CQRS.Commands.BookCommands.DeleteBook;
 using Library.Application.CQRS.Querys.BookQuerys.GetBookList;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
-using System;
-using System.Linq;
-using Library.Application.CQRS.Commands.BookCommands.DeleteBook;
-using Library.API.Controllers.Models.Book;
-using Library.Application.CQRS.Commands.BookCommands.CreateBook;
 
 namespace Library.API.Controllers
 {
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
-    public class BookController:BaseController
+    public class BookController : BaseController
     {
         private readonly IMapper _mapper;
         //TODO: Разобраться как правильно организовать сервис кэширования
@@ -38,18 +36,19 @@ namespace Library.API.Controllers
         /// <response code="200">Успешно</response>
         /// <response code="401">Если ключ в headers оказался не верен</response> 
         [HttpGet]
-        public async Task<ActionResult<BookListVm>> GetAll([FromQuery]int? authorId=null, string bookName=null, string bookGenre=null)
+        public async Task<ActionResult<BookListVm>> GetAll([FromQuery] int? authorId = null, string bookName = null, string bookGenre = null)
         {
-         
-                var query = new GetBookListQuery {
-                AuthorId =authorId,
+
+            var query = new GetBookListQuery
+            {
+                AuthorId = authorId,
                 BookGenre = bookGenre,
                 BookName = bookName,
                 CacheKey = $"{authorId}/{bookGenre}/{bookName}"
-                };
-                var vm = await Mediator.Send(query);
+            };
+            var vm = await Mediator.Send(query);
 
-                return Ok(vm);
+            return Ok(vm);
 
         }
         /// <summary>
@@ -63,13 +62,13 @@ namespace Library.API.Controllers
         /// <returns>yНичего не возрашает</returns>
         /// <response code="401">Если ключ в headers оказался не верен</response>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete (int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var command = new DeleteBookCommand
             {
                 Id = id
             };
-            await Mediator.Send(command);       
+            await Mediator.Send(command);
             return NoContent();
         }
         /// <summary>

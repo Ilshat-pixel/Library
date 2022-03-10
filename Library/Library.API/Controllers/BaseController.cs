@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Library.API.Controllers
 {
-    public abstract class BaseController :ControllerBase
+    public abstract class BaseController : ControllerBase
     {
         private IMediator _mediator;
         protected IMediator Mediator =>

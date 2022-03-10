@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Library.Application\Library.Application.csproj" />
-    <ProjectReference Include="..\Web.Persistence\Library.Persistence.csproj" />
+    <ProjectReference Include="..\Library.Persistence\Library.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

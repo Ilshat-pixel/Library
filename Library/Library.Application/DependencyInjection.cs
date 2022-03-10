@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Library.Application
 {
-    public static  class DependencyInjection
+    public static class DependencyInjection
     {
         public static IServiceCollection AddApplication(
 this IServiceCollection services)

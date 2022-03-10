@@ -18,7 +18,7 @@ namespace Library.Application.CQRS.Commands.HumanCommands.UpdateHuman
 
         public async Task<Unit> Handle(UpdateHumanCommand request, CancellationToken cancellationToken)
         {
-            var human = await _webDbContext.Humans.FindAsync(new object[] { request.Id },cancellationToken);
+            var human = await _webDbContext.Humans.FindAsync(new object[] { request.Id }, cancellationToken);
             if (human == null)
             {
                 throw new NotFoundException(nameof(Human), request.Id);

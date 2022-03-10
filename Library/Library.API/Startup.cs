@@ -1,17 +1,16 @@
+using Library.API.Middleware;
 using Library.Application;
 using Library.Application.Common.Mappings;
 using Library.Application.Interfaces;
+using Library.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
-using Library.Persistence;
-using Library.API.Middleware;
-using Library.API.Filters;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Library.API
 {
@@ -47,24 +46,24 @@ namespace Library.API
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
 {
-    {
-        new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference
-            {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            },
-            Scheme = "oauth2",
-            Name = "Bearer",
-            In = ParameterLocation.Header,
-        },
-        new List<string>()
-    }
-});
+                     {
+                         new OpenApiSecurityScheme
+                         {
+                             Reference = new OpenApiReference
+                             {
+                                 Type = ReferenceType.SecurityScheme,
+                                 Id = "Bearer"
+                             },
+                             Scheme = "oauth2",
+                             Name = "Bearer",
+                             In = ParameterLocation.Header,
+                         },
+                         new List<string>()
+                     }
+                });
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Library.API", Version = "v1" });
                 //  c.OperationFilter<AuthorizationFilter>();
-          
+
             });
         }
 
@@ -77,19 +76,19 @@ namespace Library.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Library.API v1"));
             }
-            
+
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseMiddleware<BasicAuthMiddleware>();
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
             app.UseAuthorization();
 
-           //     app.UseMiddleware<BasicAuthMiddleware>();
-                app.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapControllers();
-                });
-            }
-        
+            //     app.UseMiddleware<BasicAuthMiddleware>();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
+
     }
 }

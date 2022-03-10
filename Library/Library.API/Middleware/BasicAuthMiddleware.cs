@@ -1,7 +1,4 @@
-﻿using Library.API.Exceprions;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Net;
+﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace Library.API.Middleware
