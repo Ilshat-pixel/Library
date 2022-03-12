@@ -11,7 +11,7 @@ namespace Library.Persistence
         }
 
         public DbSet<Book> Books { get; set; }
-        public DbSet<Human> Humans { get; set; }
+        public DbSet<Person> Humans { get; set; }
         public DbSet<LibraryCard> LibraryCards { get; set; }
         public DbSet<Genre> Genres { get; set; }
     }

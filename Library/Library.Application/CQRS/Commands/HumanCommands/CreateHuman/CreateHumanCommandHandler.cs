@@ -18,12 +18,12 @@ namespace Library.Application.CQRS.Commands.HumanCommands.CreateHuman
         public async Task<int> Handle(CreateHumanCommand request, CancellationToken cancellationToken)
         {
             //TODO: Если снача создаем человека, а потом в некоторых книгах добавляем его как автора, поэтому пока книги в создании не учавствуют
-            var human = new Human
+            var human = new Person
             {
                 Birthday = request.Birthday,
                 Surname = request.Surname,
-                Name = request.Name,
-                Patronymic = request.Patronymic
+                FirstName = request.Name,
+                MiddleName = request.Patronymic
             };
             await _webDbContext.Humans.AddAsync(human, cancellationToken);
             await _webDbContext.SaveChangesAsync(cancellationToken);

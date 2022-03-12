@@ -32,7 +32,7 @@ namespace Library.Persistence.Migrations
                     b.Property<int?>("GenreId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("FirstName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -51,7 +51,7 @@ namespace Library.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -69,10 +69,10 @@ namespace Library.Persistence.Migrations
                     b.Property<DateTimeOffset>("Birthday")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .HasColumnType("text");
 
-                    b.Property<string>("Patronymic")
+                    b.Property<string>("MiddleName")
                         .HasColumnType("text");
 
                     b.Property<string>("Surname")

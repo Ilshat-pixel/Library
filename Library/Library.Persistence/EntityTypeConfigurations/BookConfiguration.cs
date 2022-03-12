@@ -8,14 +8,16 @@ namespace Library.Persistence.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.HasIndex(x => x.Id);
-            builder.HasMany(b => b.Cards)
-                .WithOne(c => c.Book).OnDelete(DeleteBehavior.SetNull);
-            builder.HasOne(b => b.Author)
-               .WithMany(c => c.Books).OnDelete(DeleteBehavior.SetNull);
-            builder.HasOne(b => b.Genre)
-               .WithMany(c => c.Books).OnDelete(DeleteBehavior.SetNull);
+            builder.ToTable("book");
+            builder.HasKey(x => x.Id).HasName("id");
+            builder.Property(x=>x.Name)
+                .HasColumnName("name")
+                .IsRequired()
+                .HasMaxLength(50);
+            builder.Property(x => x.AuthorId)
+                .HasColumnName("author_id")
+                .IsRequired();
+            builder.HasOne(x => x.Author).WithMany(a => a.Books).HasForeignKey(x => x.AuthorId);
 
         }
     }

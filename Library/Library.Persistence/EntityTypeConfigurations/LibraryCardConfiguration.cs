@@ -7,12 +7,25 @@ namespace Library.Persistence.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<LibraryCard> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.HasIndex(x => x.Id);
+            builder.ToTable("library_card");
+            builder.HasKey(x => new {x.HumanId,x.BookId});
+            builder.Property(x=>x.BookId)
+                .HasColumnName("book_id")
+                .IsRequired();
+            builder.Property(x => x.HumanId)
+                .HasColumnName("person_id")
+                .IsRequired();
+            builder.Property(x => x.DateOfIssue)
+                .HasColumnName("issue_date")
+                .IsRequired();
             builder.HasOne(x => x.Human)
-                .WithMany(h => h.LibraryCards).OnDelete(DeleteBehavior.SetNull);
+                .WithMany(h => h.LibraryCards)
+                .HasForeignKey(x=>x.HumanId)
+                .OnDelete(DeleteBehavior.SetNull);
             builder.HasOne(x => x.Book)
-                .WithMany(h => h.Cards).OnDelete(DeleteBehavior.SetNull);
+                .WithMany(h => h.LibraryCards)
+                .HasForeignKey(x=>x.BookId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

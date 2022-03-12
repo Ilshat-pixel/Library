@@ -8,10 +8,13 @@ namespace Library.Persistence.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.HasIndex(x => x.Id);
-            builder.HasMany(g => g.Books)
-                .WithOne(b => b.Genre).OnDelete(DeleteBehavior.SetNull);
+            builder.ToTable("genre");
+            builder.HasKey(x => x.Id)
+                .HasName("id");
+            builder.Property(x => x.GenreName)
+                .HasColumnName("genre_name")
+                .IsRequired()
+                .HasMaxLength(50);
         }
     }
 }

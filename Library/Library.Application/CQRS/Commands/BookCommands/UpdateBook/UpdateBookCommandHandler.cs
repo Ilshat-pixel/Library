@@ -27,7 +27,7 @@ namespace Library.Application.CQRS.Commands.BookCommands.UpdateBook
             var author = await _webDbContext.Humans.FindAsync(new object[] { request.AuthorId }, cancellationToken);
             if (author == null)
             {
-                throw new NotFoundException(nameof(Human), request.AuthorId);
+                throw new NotFoundException(nameof(Person), request.AuthorId);
             }
             var genre = await _webDbContext.Genres.FindAsync(new object[] { request.GenreId }, cancellationToken);
             if (genre == null)
@@ -36,7 +36,7 @@ namespace Library.Application.CQRS.Commands.BookCommands.UpdateBook
             }
             book.Author = author;
             book.Genre = genre;
-            book.Title = request.Title;
+            book.Name = request.Title;
             await _webDbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

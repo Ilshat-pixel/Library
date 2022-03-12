@@ -7,7 +7,9 @@ namespace Library.Domain
     {
         [Key]
         public int Id { get; set; }
-        public Human Human { get; set; }
+        public int HumanId { get; set; }
+        public Person Human { get; set; }
+        public int BookId { get; set; }
         public Book Book { get; set; }
         public DateTimeOffset DateOfIssue { get; set; }
 

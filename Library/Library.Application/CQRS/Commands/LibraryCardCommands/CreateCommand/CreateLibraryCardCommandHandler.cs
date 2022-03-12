@@ -23,7 +23,7 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand
 
             if (human == null)
             {
-                throw new NotFoundException(nameof(Human), request.HumanId);
+                throw new NotFoundException(nameof(Person), request.HumanId);
             }
 
             var libraryCard = new LibraryCard

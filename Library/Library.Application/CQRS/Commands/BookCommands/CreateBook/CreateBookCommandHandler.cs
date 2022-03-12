@@ -24,7 +24,7 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
             var author = await _dbContext.Humans.FindAsync(new object[] { request.AuthorId }, cancellationToken);
             if (author == null)
             {
-                throw new NotFoundException(nameof(Human), request.AuthorId);
+                throw new NotFoundException(nameof(Person), request.AuthorId);
             }
             var genre = await _dbContext.Genres.FindAsync(new object[] { request.GenreId }, cancellationToken);
             if (genre == null)
@@ -35,7 +35,7 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
             {
                 Author = author,
                 Genre = genre,
-                Title = request.Title
+                Name = request.Title
             };
             await _dbContext.Books.AddAsync(book, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);

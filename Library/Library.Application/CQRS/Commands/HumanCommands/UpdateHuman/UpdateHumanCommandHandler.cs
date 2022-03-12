@@ -21,11 +21,11 @@ namespace Library.Application.CQRS.Commands.HumanCommands.UpdateHuman
             var human = await _webDbContext.Humans.FindAsync(new object[] { request.Id }, cancellationToken);
             if (human == null)
             {
-                throw new NotFoundException(nameof(Human), request.Id);
+                throw new NotFoundException(nameof(Person), request.Id);
             }
-            human.Name = request.Name;
+            human.FirstName = request.Name;
             human.Birthday = request.Birthday;
-            human.Patronymic = request.Patronymic;
+            human.MiddleName = request.Patronymic;
             human.Surname = request.Surname;
             await _webDbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

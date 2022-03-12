@@ -9,7 +9,7 @@ namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
         public int Id { get; set; }
         public string Title { get; set; }
         public string Name { get; set; }
-        public Human Author { get; set; }
+        public Person Author { get; set; }
         //TODO: думаю стоит выкинуть в отдельную таблицу жанры, пока не буду усложнять
         public Genre Genre { get; set; }
         public void Mapping(Profile profile)
@@ -18,7 +18,7 @@ namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
                 .ForMember(bookDto => bookDto.Id,
                 opt => opt.MapFrom(book => book.Id))
                   .ForMember(bookDto => bookDto.Title,
-                opt => opt.MapFrom(book => book.Title))
+                opt => opt.MapFrom(book => book.Name))
                     .ForMember(bookDto => bookDto.Author,
                 opt => opt.MapFrom(book => book.Author))
                       .ForMember(bookDto => bookDto.Genre,

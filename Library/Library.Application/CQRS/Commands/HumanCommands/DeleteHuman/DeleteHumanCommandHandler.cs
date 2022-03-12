@@ -21,7 +21,7 @@ namespace Library.Application.CQRS.Commands.HumanCommands.DeleteHuman
             var human = await _webDbContext.Humans.FindAsync(new object[] { request.Id }, cancellationToken);
             if (human == null)
             {
-                throw new NotFoundException(nameof(Human), request.Id);
+                throw new NotFoundException(nameof(Person), request.Id);
 
             }
             _webDbContext.Humans.Remove(human);

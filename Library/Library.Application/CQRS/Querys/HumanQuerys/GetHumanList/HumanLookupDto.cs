@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Library.Application.CQRS.Querys.HumanQuerys.GetHumanList
 {
-    public class HumanLookupDto : IMapWith<Human>
+    public class HumanLookupDto : IMapWith<Person>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,15 +16,15 @@ namespace Library.Application.CQRS.Querys.HumanQuerys.GetHumanList
         public ICollection<Book> Books { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Human, HumanLookupDto>()
+            profile.CreateMap<Person, HumanLookupDto>()
                 .ForMember(humanDto => humanDto.Id,
                 opt => opt.MapFrom(human => human.Id))
                 .ForMember(humanDto => humanDto.Name,
-                opt => opt.MapFrom(human => human.Name))
+                opt => opt.MapFrom(human => human.FirstName))
                 .ForMember(humanDto => humanDto.Birthday,
                 opt => opt.MapFrom(human => human.Birthday))
                 .ForMember(humanDto => humanDto.Patronymic,
-                opt => opt.MapFrom(human => human.Patronymic))
+                opt => opt.MapFrom(human => human.MiddleName))
                 .ForMember(humanDto => humanDto.Surname,
                 opt => opt.MapFrom(human => human.Surname))
                 .ForMember(humanDto => humanDto.Books,
