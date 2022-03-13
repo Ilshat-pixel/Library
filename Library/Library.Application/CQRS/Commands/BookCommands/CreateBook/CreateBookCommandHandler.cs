@@ -2,6 +2,8 @@
 using Library.Application.Interfaces;
 using Library.Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,20 +23,20 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
 
         public async Task<int> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            var author = await _dbContext.Humans.FindAsync(new object[] { request.AuthorId }, cancellationToken);
+            var author = await _dbContext.Authors.FindAsync(new object[] { request.AuthorId }, cancellationToken);
             if (author == null)
             {
                 throw new NotFoundException(nameof(Person), request.AuthorId);
             }
-            var genre = await _dbContext.Genres.FindAsync(new object[] { request.GenreId }, cancellationToken);
-            if (genre == null)
-            {
-                throw new NotFoundException(nameof(Genre), request.GenreId);
-            }
+            //var genre = await  _dbContext.Genres.Where(x=>request.GenreId.Contains(x.Id)).ToListAsync(cancellationToken);
+            //if (genre == null)
+            //{
+            //    throw new NotFoundException(nameof(Genre), request.GenreId);
+            //}
             var book = new Book
             {
                 Author = author,
-                Genre = genre,
+                //BookGenres = genre,
                 Name = request.Title
             };
             await _dbContext.Books.AddAsync(book, cancellationToken);

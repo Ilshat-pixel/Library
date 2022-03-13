@@ -14,7 +14,7 @@ namespace Library.Domain
         public string LastName { get; set; }
         public string MiddleName { get; set; }
         public DateTimeOffset Birthday { get; set; }
-        public ICollection<LibraryCard> LibraryCards { get; set; }
+        public virtual ICollection<LibraryCard> LibraryCards { get; set; }
 
     }
 }

@@ -18,7 +18,7 @@ namespace Library.Application.CQRS.Commands.HumanCommands.UpdateHuman
 
         public async Task<Unit> Handle(UpdateHumanCommand request, CancellationToken cancellationToken)
         {
-            var human = await _webDbContext.Humans.FindAsync(new object[] { request.Id }, cancellationToken);
+            var human = await _webDbContext.Persons.FindAsync(new object[] { request.Id }, cancellationToken);
             if (human == null)
             {
                 throw new NotFoundException(nameof(Person), request.Id);
@@ -26,7 +26,7 @@ namespace Library.Application.CQRS.Commands.HumanCommands.UpdateHuman
             human.FirstName = request.Name;
             human.Birthday = request.Birthday;
             human.MiddleName = request.Patronymic;
-            human.Surname = request.Surname;
+            human.LastName = request.Surname;
             await _webDbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

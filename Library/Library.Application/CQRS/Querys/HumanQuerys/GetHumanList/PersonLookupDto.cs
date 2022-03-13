@@ -6,29 +6,27 @@ using System.Collections.Generic;
 
 namespace Library.Application.CQRS.Querys.HumanQuerys.GetHumanList
 {
-    public class HumanLookupDto : IMapWith<Person>
+    public class PersonLookupDto : IMapWith<Person>
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Patronymic { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
         public DateTime Birthday { get; set; }
-        public ICollection<Book> Books { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Person, HumanLookupDto>()
+            profile.CreateMap<Person, PersonLookupDto>()
                 .ForMember(humanDto => humanDto.Id,
                 opt => opt.MapFrom(human => human.Id))
-                .ForMember(humanDto => humanDto.Name,
+                .ForMember(humanDto => humanDto.FirstName,
                 opt => opt.MapFrom(human => human.FirstName))
                 .ForMember(humanDto => humanDto.Birthday,
                 opt => opt.MapFrom(human => human.Birthday))
-                .ForMember(humanDto => humanDto.Patronymic,
+                .ForMember(humanDto => humanDto.LastName,
                 opt => opt.MapFrom(human => human.MiddleName))
-                .ForMember(humanDto => humanDto.Surname,
-                opt => opt.MapFrom(human => human.Surname))
-                .ForMember(humanDto => humanDto.Books,
-                opt => opt.MapFrom(human => human.Books));
+                .ForMember(humanDto => humanDto.MiddleName,
+                opt => opt.MapFrom(human => human.MiddleName));
+               
         }
     }
 }

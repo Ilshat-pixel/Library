@@ -42,6 +42,7 @@ namespace Library.API
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
+                    
                     Scheme = "Bearer"
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
@@ -77,8 +78,11 @@ namespace Library.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Library.API v1"));
             }
 
-            app.UseHttpsRedirection();
+
+
+            app.UseCustomExceptionHandler();
             app.UseRouting();
+            app.UseHttpsRedirection();
             app.UseMiddleware<BasicAuthMiddleware>();
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
             app.UseAuthorization();

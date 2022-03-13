@@ -23,16 +23,13 @@ namespace Library.Application.CQRS.Querys.HumanQuerys.GetHumanList
 
         public async Task<HumanListVm> Handle(GetHumanListQuery request, CancellationToken cancellationToken)
         {
-            var humanQuery = await _webDbContext.Humans.Include(h => h.Books)
-                .ProjectTo<HumanLookupDto>(_mapper.ConfigurationProvider)
+            var humanQuery = await _webDbContext.Persons
+                .ProjectTo<PersonLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
-            if (request.IsAuthor == true)
-            {
-                humanQuery = humanQuery.Where(h => h.Books.Count() > 0).ToList();
-            }
+
             if (!String.IsNullOrEmpty(request.SearchString))
             {
-                humanQuery = humanQuery.Where(h => (h.Name.ToLower() + h.Surname.ToLower() + h.Patronymic.ToLower()).Contains(request.SearchString.ToLower())).ToList();
+                humanQuery = humanQuery.Where(h => (h.FirstName.ToLower() + h.MiddleName.ToLower() + h.LastName.ToLower()).Contains(request.SearchString.ToLower())).ToList();
             }
             return new HumanListVm { Humans = humanQuery };
         }

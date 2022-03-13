@@ -3,7 +3,7 @@ using Library.Application.CQRS.Commands.HumanCommands.CreateHuman;
 using Library.Application.Interfaces;
 using System;
 
-namespace Library.API.Controllers.Models.Human
+namespace Library.API.DTOs.Human
 {
     /// <summary>
     /// 1.2.1 Класс презентующий человека

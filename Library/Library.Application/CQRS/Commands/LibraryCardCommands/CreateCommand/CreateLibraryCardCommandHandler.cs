@@ -19,7 +19,7 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand
 
         public async Task<int> Handle(CreateLibraryCardCommand request, CancellationToken cancellationToken)
         {
-            var human = await _webDbContext.Humans.FindAsync(new object[] { request.HumanId }, cancellationToken);
+            var human = await _webDbContext.Persons.FindAsync(new object[] { request.HumanId }, cancellationToken);
 
             if (human == null)
             {
@@ -28,8 +28,8 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand
 
             var libraryCard = new LibraryCard
             {
-                DateOfIssue = DateTimeOffset.Now,
-                Human = human
+                Date = DateTimeOffset.Now,
+                Person = human
             };
 
             await _webDbContext.LibraryCards.AddAsync(libraryCard, cancellationToken);

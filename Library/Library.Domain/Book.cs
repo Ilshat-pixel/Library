@@ -12,7 +12,7 @@ namespace Library.Domain
         public string Name { get; set; }
         public int AuthorId { get; set; }
         public virtual Author Author { get; set; }
-        public virtual ICollection<LibraryCard> LibraryCards { get; set; }
-        public virtual ICollection<BookGenre> BookGenres { get; set; }
+        public virtual ICollection<LibraryCard>LibraryCards { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
     }
 }

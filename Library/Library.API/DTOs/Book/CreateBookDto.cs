@@ -2,7 +2,7 @@
 using Library.Application.CQRS.Commands.BookCommands.CreateBook;
 using Library.Application.Interfaces;
 
-namespace Library.API.Controllers.Models.Book
+namespace Library.API.DTOs.Book
 {
     /// <summary>
     /// 1.2.2 Класс презентующий книгу

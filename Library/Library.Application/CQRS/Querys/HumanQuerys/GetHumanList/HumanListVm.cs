@@ -4,6 +4,6 @@ namespace Library.Application.CQRS.Querys.HumanQuerys.GetHumanList
 {
     public class HumanListVm
     {
-        public IList<HumanLookupDto> Humans { get; set; }
+        public IList<PersonLookupDto> Humans { get; set; }
     }
 }

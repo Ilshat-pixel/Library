@@ -15,12 +15,10 @@ namespace Library.API.Controllers
     public class BookController : BaseController
     {
         private readonly IMapper _mapper;
-        //TODO: Разобраться как правильно организовать сервис кэширования
-        private readonly IMemoryCache _memoryCache;
-        public BookController(IMapper mapper, IMemoryCache memoryCache)
+
+        public BookController(IMapper mapper)
         {
             _mapper = mapper;
-            _memoryCache = memoryCache;
         }
         /// <summary>
         /// Возрашает список книг, а так же выполняет фильтрацию

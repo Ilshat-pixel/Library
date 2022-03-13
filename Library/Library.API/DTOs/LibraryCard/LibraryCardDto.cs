@@ -2,7 +2,7 @@
 using Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand;
 using Library.Application.Interfaces;
 
-namespace Library.API.Models.LibraryCard
+namespace Library.API.DTOs.LibraryCard
 {
     public class LibraryCardDto : IMapWith<CreateLibraryCardCommand>
     {

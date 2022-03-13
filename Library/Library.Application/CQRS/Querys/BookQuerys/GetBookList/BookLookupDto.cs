@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Library.Application.Interfaces;
 using Library.Domain;
+using System.Collections.Generic;
 
 namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
 {
@@ -11,7 +12,7 @@ namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
         public string Name { get; set; }
         public Person Author { get; set; }
         //TODO: думаю стоит выкинуть в отдельную таблицу жанры, пока не буду усложнять
-        public Genre Genre { get; set; }
+       // public ICollection<Genre> Genres { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Book, BookLookupDto>()
@@ -20,9 +21,9 @@ namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
                   .ForMember(bookDto => bookDto.Title,
                 opt => opt.MapFrom(book => book.Name))
                     .ForMember(bookDto => bookDto.Author,
-                opt => opt.MapFrom(book => book.Author))
-                      .ForMember(bookDto => bookDto.Genre,
-                opt => opt.MapFrom(book => book.Genre));
+                opt => opt.MapFrom(book => book.Author));
+                //      .ForMember(bookDto => bookDto.Genres,
+                //opt => opt.MapFrom(book => book.Genres));
         }
     }
 }

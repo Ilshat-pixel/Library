@@ -12,10 +12,10 @@ namespace Library.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
-    public class HumanController : BaseController
+    public class PersonController : BaseController
     {
         private readonly IMapper _mapper;
-        public HumanController(IMapper mapper)
+        public PersonController(IMapper mapper)
         {
             _mapper = mapper;
         }
@@ -59,6 +59,7 @@ namespace Library.API.Controllers
         /// <returns>yНичего не возрашает</returns>
         /// <response code="401">Если ключ в headers оказался не верен</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete(int id)
         {

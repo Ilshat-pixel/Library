@@ -18,13 +18,13 @@ namespace Library.Application.CQRS.Commands.HumanCommands.DeleteHuman
 
         public async Task<Unit> Handle(DeleteHumanCommand request, CancellationToken cancellationToken)
         {
-            var human = await _webDbContext.Humans.FindAsync(new object[] { request.Id }, cancellationToken);
+            var human = await _webDbContext.Persons.FindAsync(new object[] { request.Id }, cancellationToken);
             if (human == null)
             {
                 throw new NotFoundException(nameof(Person), request.Id);
 
             }
-            _webDbContext.Humans.Remove(human);
+            _webDbContext.Persons.Remove(human);
             await _webDbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

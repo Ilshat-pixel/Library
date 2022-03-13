@@ -7,7 +7,7 @@ namespace Library.Application.CQRS.Commands.BookCommands.UpdateBook
         public UpdateBookCommandValidator()
         {
             RuleFor(updateBookCommand =>
-                updateBookCommand.Title).NotEmpty().NotNull();
+                updateBookCommand.Name).NotEmpty().NotNull();
             RuleFor(updateBookCommand =>
                 updateBookCommand.GenreId).NotEmpty().NotNull();
             RuleFor(updateBookCommand =>

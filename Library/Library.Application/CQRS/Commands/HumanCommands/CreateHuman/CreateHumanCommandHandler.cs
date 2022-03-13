@@ -21,11 +21,11 @@ namespace Library.Application.CQRS.Commands.HumanCommands.CreateHuman
             var human = new Person
             {
                 Birthday = request.Birthday,
-                Surname = request.Surname,
+                LastName = request.Patronymic,
                 FirstName = request.Name,
-                MiddleName = request.Patronymic
+                MiddleName = request.Surname
             };
-            await _webDbContext.Humans.AddAsync(human, cancellationToken);
+            await _webDbContext.Persons.AddAsync(human, cancellationToken);
             await _webDbContext.SaveChangesAsync(cancellationToken);
             return human.Id;
         }

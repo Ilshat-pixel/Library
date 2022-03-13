@@ -9,6 +9,6 @@ namespace Library.Domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
-        public ICollection<Book>Books { get; set; }
+        public virtual ICollection<Book>Books { get; set; }
     }
 }
