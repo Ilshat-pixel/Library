@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Library.API.Models.LibraryCard;
+using Library.API.DTOs.LibraryCard;
 using Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

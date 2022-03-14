@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
-using Library.API.Controllers.Models.Human;
-using Library.Application.CQRS.Commands.HumanCommands.CreateHuman;
-using Library.Application.CQRS.Commands.HumanCommands.DeleteHuman;
+using Library.API.DTOs.Person;
+using Library.Application.CQRS.Commands.PersonCommands.CreatePerson;
+using Library.Application.CQRS.Commands.PersonCommands.DeletePerson;
+using Library.Application.CQRS.Commands.PersonCommands.DeletePersonByFullName;
+using Library.Application.CQRS.Commands.PersonCommands.UpdatePerson;
 using Library.Application.CQRS.Querys.HumanQuerys.GetHumanList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,26 +65,58 @@ namespace Library.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete(int id)
         {
-            var command = new DeleteHumanCommand
+            var command = new DeletePersonCommand
             {
                 Id = id
             };
             await Mediator.Send(command);
             return NoContent();
         }
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeletePersonByFullName([FromQuery]string FirstName, string MiddleName, string LastName )
+        {
+
+            var command = new DeletePersonByFullNameCommand
+            {
+               FirstName = FirstName,
+               MiddleName = MiddleName,
+               LastName = LastName
+            };
+            await Mediator.Send(command);
+            return Ok();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="updateNoteDto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Update([FromBody] UpdatePersonDto updateNoteDto)
+        {
+            var command = _mapper.Map<UpdatePersonCommand>(updateNoteDto);
+            var personVm = await Mediator.Send(command);
+            return Ok(personVm);
+        }
         /// <summary>
         /// Создает нового человека
         /// </summary>
-        /// <param name="createHumanDto">Dto для создания человека</param>
-        /// <returns>Id нового человека</returns>
+        /// <param name="createpersonDto">Dto для создания человека</param>
+        /// <returns>Созданного человека</returns>
         /// <response code="200">Успешно</response>
         /// <response code="401">Если ключ в headers оказался не верен</response> 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] CreateHumanDto createHumanDto)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PersonVm>> Create([FromBody] CreatePersonDto createHumanDto)
         {
-            var command = _mapper.Map<CreateHumanCommand>(createHumanDto);
-            var humanId = await Mediator.Send(command);
-            return Ok(humanId);
+            var command = _mapper.Map<CreatePersonCommand>(createHumanDto);
+            var personVm = await Mediator.Send(command);
+            return Ok(personVm);
         }
 
     }

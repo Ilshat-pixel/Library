@@ -16,12 +16,16 @@ namespace Library.Persistence.EntityTypeConfigurations
             builder.Property(x => x.PersonId)
                 .HasColumnName("person_id")
                 .IsRequired();
-            builder.Property(x => x.Date)
-                .HasColumnName("date")
+            builder.Property(x => x.TakeDate)
+                .HasColumnName("take_date")
                 .IsRequired();
-            builder.HasOne(x => x.Status)
-                .WithMany(c => c.LibraryCards)
-                .HasForeignKey(x => x.StatusId);
+            //builder.HasOne(x => x.Status)
+            //    .WithMany(c => c.LibraryCards)
+            //    .HasForeignKey(x => x.StatusId);
+            builder.Property(x => x.IsReterned)
+                .HasColumnName("isReturned");
+            builder.Property(x => x.ReturnDate)
+                 .HasColumnName("return_date");
             builder.HasOne(x => x.Person)
                 .WithMany(h => h.LibraryCards)
                 .HasForeignKey(x=>x.PersonId)

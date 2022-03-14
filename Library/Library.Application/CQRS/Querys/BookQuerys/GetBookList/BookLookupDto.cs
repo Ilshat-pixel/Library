@@ -11,8 +11,6 @@ namespace Library.Application.CQRS.Querys.BookQuerys.GetBookList
         public string Title { get; set; }
         public string Name { get; set; }
         public Person Author { get; set; }
-        //TODO: думаю стоит выкинуть в отдельную таблицу жанры, пока не буду усложнять
-       // public ICollection<Genre> Genres { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Book, BookLookupDto>()

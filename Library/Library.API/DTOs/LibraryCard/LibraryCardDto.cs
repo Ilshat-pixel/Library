@@ -11,7 +11,7 @@ namespace Library.API.DTOs.LibraryCard
         public void Mapping(Profile profile)
         {
             profile.CreateMap<LibraryCardDto, CreateLibraryCardCommand>()
-                .ForMember(cardCommand => cardCommand.HumanId,
+                .ForMember(cardCommand => cardCommand.PersonId,
                 opt => opt.MapFrom(cardDto => cardDto.HumanId))
                 .ForMember(cardCommand => cardCommand.BookId,
                 opt => opt.MapFrom(cardDto => cardDto.BookId));

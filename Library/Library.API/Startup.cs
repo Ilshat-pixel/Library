@@ -86,8 +86,8 @@ namespace Library.API
             app.UseMiddleware<BasicAuthMiddleware>();
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
             app.UseAuthorization();
-
-            //     app.UseMiddleware<BasicAuthMiddleware>();
+            
+            app.UseMiddleware<BasicAuthMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

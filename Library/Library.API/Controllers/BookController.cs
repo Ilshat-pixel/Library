@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using Library.API.Controllers.Models.Book;
+using Library.API.DTOs.Book;
 using Library.Application.CQRS.Commands.BookCommands.CreateBook;
 using Library.Application.CQRS.Commands.BookCommands.DeleteBook;
 using Library.Application.CQRS.Querys.BookQuerys.GetBookList;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
 
 namespace Library.API.Controllers
