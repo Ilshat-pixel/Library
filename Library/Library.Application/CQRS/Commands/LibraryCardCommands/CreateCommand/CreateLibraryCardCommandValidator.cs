@@ -7,7 +7,9 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand
         public CreateLibraryCardCommandValidator()
         {
             RuleFor(createLibraryCardCommand =>
-            createLibraryCardCommand.HumanId).NotEmpty().NotNull();
+            createLibraryCardCommand.PersonId).NotEmpty().NotNull();
+            RuleFor(createLibraryCardCommand =>
+           createLibraryCardCommand.BookId).NotEmpty().NotNull();
         }
     }
 }

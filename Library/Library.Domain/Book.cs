@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Library.Domain
 {
@@ -8,9 +9,10 @@ namespace Library.Domain
     public class Book
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public Human Author { get; set; }
-        public ICollection<LibraryCard> Cards { get; set; }
-        public Genre Genre { get; set; }
+        public string Name { get; set; }
+        public int AuthorId { get; set; }
+        public virtual Author Author { get; set; }
+        public virtual ICollection<LibraryCard>LibraryCards { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
     }
 }

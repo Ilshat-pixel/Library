@@ -9,9 +9,10 @@ namespace Library.Application.Interfaces
     {
 
         DbSet<Book> Books { get; set; }
-        DbSet<Human> Humans { get; set; }
+        DbSet<Person> Persons { get; set; }
         DbSet<Genre> Genres { get; set; }
         DbSet<LibraryCard> LibraryCards { get; set; }
+        DbSet<Author> Authors { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

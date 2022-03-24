@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using Library.API.Controllers.Models.Book;
+using Library.API.DTOs.Book;
 using Library.Application.CQRS.Commands.BookCommands.CreateBook;
 using Library.Application.CQRS.Commands.BookCommands.DeleteBook;
 using Library.Application.CQRS.Querys.BookQuerys.GetBookList;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
 
 namespace Library.API.Controllers
@@ -15,12 +14,10 @@ namespace Library.API.Controllers
     public class BookController : BaseController
     {
         private readonly IMapper _mapper;
-        //TODO: Разобраться как правильно организовать сервис кэширования
-        private readonly IMemoryCache _memoryCache;
-        public BookController(IMapper mapper, IMemoryCache memoryCache)
+
+        public BookController(IMapper mapper)
         {
             _mapper = mapper;
-            _memoryCache = memoryCache;
         }
         /// <summary>
         /// Возрашает список книг, а так же выполняет фильтрацию

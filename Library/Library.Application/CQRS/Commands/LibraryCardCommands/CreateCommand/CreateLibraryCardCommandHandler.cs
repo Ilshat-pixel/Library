@@ -19,22 +19,29 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand
 
         public async Task<int> Handle(CreateLibraryCardCommand request, CancellationToken cancellationToken)
         {
-            var human = await _webDbContext.Humans.FindAsync(new object[] { request.HumanId }, cancellationToken);
+            var person = await _webDbContext.Persons.FindAsync(new object[] { request.PersonId }, cancellationToken);
 
-            if (human == null)
+            if (person == null)
             {
-                throw new NotFoundException(nameof(Human), request.HumanId);
+                throw new NotFoundException(nameof(Person), request.PersonId);
+            }
+            var book = await _webDbContext.Books.FindAsync(new object[] { request.BookId}, cancellationToken);
+
+            if (person == null)
+            {
+                throw new NotFoundException(nameof(Book), request.BookId);
             }
 
             var libraryCard = new LibraryCard
             {
-                DateOfIssue = DateTimeOffset.Now,
-                Human = human
+                TakeDate = DateTimeOffset.Now,
+                Person = person,
+                Book = book,
+                IsReterned = false
             };
 
             await _webDbContext.LibraryCards.AddAsync(libraryCard, cancellationToken);
             await _webDbContext.SaveChangesAsync(cancellationToken);
-
             return libraryCard.Id;
         }
     }
