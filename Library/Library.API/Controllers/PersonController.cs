@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
+using Library.API.DTOs.Book;
+using Library.API.DTOs.LibraryCard;
 using Library.API.DTOs.Person;
+using Library.Application.CQRS.Commands.LibraryCardCommands.BookReturnedCommand;
+using Library.Application.CQRS.Commands.LibraryCardCommands.CreateCommand;
 using Library.Application.CQRS.Commands.PersonCommands.CreatePerson;
 using Library.Application.CQRS.Commands.PersonCommands.DeletePerson;
 using Library.Application.CQRS.Commands.PersonCommands.DeletePersonByFullName;
@@ -77,7 +81,6 @@ namespace Library.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeletePersonByFullName([FromQuery]string FirstName, string MiddleName, string LastName )
         {
-
             var command = new DeletePersonByFullNameCommand
             {
                FirstName = FirstName,
@@ -119,5 +122,23 @@ namespace Library.API.Controllers
             return Ok(personVm);
         }
 
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<int>> GetBook([FromBody] LibraryCardDto libraryCardDto)
+        {
+            var command = _mapper.Map<CreateLibraryCardCommand>(libraryCardDto);
+            var humanId = await Mediator.Send(command);
+            return Ok(humanId);
+        }
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> ReturnBook(BooksForReturnDto booksForReturnDto)
+        {
+            var command = _mapper.Map<ReturnBookLibraryCardCommand>(booksForReturnDto);
+            await Mediator.Send(command);
+            return NoContent();
+        }
     }
 }

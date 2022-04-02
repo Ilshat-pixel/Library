@@ -57,9 +57,9 @@ namespace Library.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] CreateAuthorDto createBookDto)
+        public async Task<ActionResult<int>> Create([FromBody] CreateAuthorDto createAuthorDto)
         {
-            var command = _mapper.Map<CreateAuthorCommand>(createBookDto);
+            var command = _mapper.Map<CreateAuthorCommand>(createAuthorDto);
             var bookId = await Mediator.Send(command);
             return Ok(bookId);
         }

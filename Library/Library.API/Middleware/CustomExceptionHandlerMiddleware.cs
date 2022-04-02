@@ -40,6 +40,12 @@ namespace Library.API.Middleware
                 case NotFoundException:
                     code = HttpStatusCode.NotFound;
                     break;
+                case AuthorCannotBeDeletedException :
+                    code = HttpStatusCode.Conflict;
+                    break;
+                case BookCannotBeDeletedException:
+                    code= HttpStatusCode.Conflict;
+                    break;
             }
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;

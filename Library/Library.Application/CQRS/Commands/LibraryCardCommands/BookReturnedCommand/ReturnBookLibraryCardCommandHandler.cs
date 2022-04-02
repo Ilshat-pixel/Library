@@ -1,11 +1,8 @@
-﻿using Library.Application.Common.Exceptions;
-using Library.Application.Interfaces;
-using Library.Domain;
+﻿using Library.Application.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,14 +19,21 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.BookReturnedComm
 
         public async Task<Unit> Handle(ReturnBookLibraryCardCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _webDbContext.LibraryCards.FindAsync(new object[] { request.Id }, cancellationToken);
-            if (entity == null)
+            //TODO: проверка на нал
+            var entity = await _webDbContext.LibraryCards
+                .Include(x => x.Book)
+                .Where(x => (x.Id == request.PersonId && x.IsReterned == false && request.BookTitles.Contains(x.Book.Name)))
+                .ToListAsync(cancellationToken);
+            //if (entity == null)
+            //{
+            //    throw new NotFoundException(nameof(LibraryCard), request.Id);
+            //}
+            foreach (var item in entity)
             {
-                throw new NotFoundException(nameof(LibraryCard), request.Id);
+                item.IsReterned = true;
+                item.ReturnDate = DateTimeOffset.Now;
             }
-            entity.IsReterned = true;
-            entity.ReturnDate = DateTimeOffset.Now;
-            await  _webDbContext.SaveChangesAsync(cancellationToken);
+            await _webDbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
     }

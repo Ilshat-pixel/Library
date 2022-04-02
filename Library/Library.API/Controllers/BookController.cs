@@ -3,6 +3,8 @@ using Library.API.DTOs.Book;
 using Library.Application.CQRS.Commands.BookCommands.CreateBook;
 using Library.Application.CQRS.Commands.BookCommands.DeleteBook;
 using Library.Application.CQRS.Querys.BookQuerys.GetBookList;
+using Library.Application.CQRS.Querys.BookQuerys.GetBooksByGenre;
+using Library.Application.CQRS.Querys.GenreQuerys.GetGenreListQuery;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -35,7 +37,6 @@ namespace Library.API.Controllers
         [HttpGet]
         public async Task<ActionResult<BookListVm>> GetAll([FromQuery] int? authorId = null, string bookName = null, string bookGenre = null)
         {
-
             var query = new GetBookListQuery
             {
                 AuthorId = authorId,
@@ -79,6 +80,15 @@ namespace Library.API.Controllers
             var command = _mapper.Map<CreateBookCommand>(createBookDto);
             var bookId = await Mediator.Send(command);
             return Ok(bookId);
+        }
+
+        [HttpGet]
+
+        public async Task<ActionResult<BooksByGenreVm>> GetBooksByGenre(int id)
+        {
+            var query = new GetBookByGenreQuery { Id = id };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
     }

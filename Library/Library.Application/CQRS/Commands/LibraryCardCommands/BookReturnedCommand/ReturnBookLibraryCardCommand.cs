@@ -9,6 +9,7 @@ namespace Library.Application.CQRS.Commands.LibraryCardCommands.BookReturnedComm
 {
     public class ReturnBookLibraryCardCommand : IRequest
     {
-        public int Id { get; set; }
+        public int PersonId { get; set; }
+        public IList<string> BookTitles { get; set; }
     }
 }

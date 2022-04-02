@@ -2,6 +2,7 @@
 using Library.API.DTOs.Genre;
 using Library.Application.CQRS.Commands.GenreCommands.CreateGenre;
 using Library.Application.CQRS.Querys.GenreQuerys.GetGenreListQuery;
+using Library.Application.CQRS.Querys.GenreQuerys.GetGenresWithBookCountQuery;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -36,10 +37,13 @@ namespace Library.API.Controllers
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
-        //[HttpGet]
-        //public Task<ActionResult<BooksCountByGenreVm>> GetBooksCountByGenre()
-        //{
+        [HttpGet]
+        public async Task<ActionResult<GenreCountVm>> GetBooksCountByGenre()
+        {
+            var command = new GetGenresWithBookCountQuery();
+            var vm = await Mediator.Send(command);
+            return Ok(vm);
 
-        //}
+        }
     }
 }

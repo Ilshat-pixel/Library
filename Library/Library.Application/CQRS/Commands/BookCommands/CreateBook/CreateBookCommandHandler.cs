@@ -28,15 +28,15 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
             {
                 throw new NotFoundException(nameof(Person), request.AuthorId);
             }
-            //var genre = await  _dbContext.Genres.Where(x=>request.GenreId.Contains(x.Id)).ToListAsync(cancellationToken);
-            //if (genre == null)
-            //{
-            //    throw new NotFoundException(nameof(Genre), request.GenreId);
-            //}
+            var genre = await _dbContext.Genres.Where(x => request.GenreIds.Contains(x.Id)).ToListAsync(cancellationToken);
+            if (genre == null)
+            {
+                throw new NotFoundException(nameof(Genre), request.GenreIds);
+            }
             var book = new Book
             {
                 Author = author,
-                //BookGenres = genre,
+                Genres = genre,
                 Name = request.Title
             };
             await _dbContext.Books.AddAsync(book, cancellationToken);

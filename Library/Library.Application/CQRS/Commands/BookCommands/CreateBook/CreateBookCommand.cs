@@ -7,6 +7,6 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
     {
         public string Title { get; set; }
         public int AuthorId { get; set; }
-        public IList<int> GenreId { get; set; }
+        public IList<int> GenreIds { get; set; }
     }
 }

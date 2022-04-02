@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Application.CQRS.Querys.GenreQuerys.GetGenresWithBookCountQuery
 {
-    public class GenreCounVm
+    public class GenreCountVm
     {
         public IList<GenreCountDto> GenreCounts { get; set; }
     }
