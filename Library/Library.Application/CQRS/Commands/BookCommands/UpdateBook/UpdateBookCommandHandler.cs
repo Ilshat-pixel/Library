@@ -25,18 +25,23 @@ namespace Library.Application.CQRS.Commands.BookCommands.UpdateBook
                 throw new NotFoundException(nameof(Book), request.Id);
             }
             //TODO: придумать что делать если автор айди не поменялся, пока что буду всегда перезаписывать 
-            var author = await _webDbContext.Persons.FindAsync(new object[] { request.AuthorId }, cancellationToken);
+            var author = await _webDbContext.Authors.FindAsync(new object[] { request.AuthorId }, cancellationToken);
             if (author == null)
             {
                 throw new NotFoundException(nameof(Person), request.AuthorId);
             }
-            //var genre =  _webDbContext.Genres.Where(x=>request.GenreId.Contains(x.Id));
-            //if (genre == null)
-            //{
-            //    throw new NotFoundException(nameof(Genre), request.GenreId);
-            //}
-            //book.Author = author;
-            //book.Genre = genre;
+
+            book.Author = author;
+           //TODO: пункт 7.2.3 Переделать правильно
+           foreach(var genre in book.Genres) 
+            {
+                book.Genres.Remove(genre);
+            }
+            foreach (var id in request.GenreId)
+            {
+                var genre = await _webDbContext.Genres.FindAsync(new object[] { id }, cancellationToken);
+                book.Genres.Add(genre);
+            }
             book.Name = request.Name;
             await _webDbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

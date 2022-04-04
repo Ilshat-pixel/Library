@@ -2,12 +2,9 @@
 using Library.API.DTOs.Author;
 using Library.Application.CQRS.Commands.AuthorCommands.CreateAuthorCommand;
 using Library.Application.CQRS.Commands.AuthorCommands.DeleteAuthor;
+using Library.Application.CQRS.Querys.AuhtorsQuerys.GetAuthorList;
 using Library.Application.CQRS.Querys.BookQuerys.GetBookList;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.API.Controllers
@@ -22,27 +19,28 @@ namespace Library.API.Controllers
         }
 
 
-        //[HttpGet]
-        //public async Task<ActionResult<AuthorsListVm>> GetAll()
-        //{
-        //    var query = new GetAuthorsListQuery
-        //    {
-        //    };
-        //    var vm = await Mediator.Send(query);
+        [HttpGet]
+        public async Task<ActionResult<AuthorListVm>> GetAll()
+        {
+            var query = new GetAuthorListQuery
+            {
+            };
+            var vm = await Mediator.Send(query);
 
-        //    return Ok(vm);
+            return Ok(vm);
 
-        //}
-        //[HttpGet]
-        //public async Task<ActionResult<AuthorBooksVm>> GetAuthorBooks([FromQuery]int id)
-        //{
-        //    var query = new GetAuthorBooksQuery
-        //    {
-        //    };
-        //    var vm = await Mediator.Send(query);
+        }
 
-        //    return Ok(vm);
-        //}
+        [HttpGet]
+        public async Task<ActionResult<BookListVm>> GetAuthorBooks( int id)
+        {
+            var query = new GetBookListQuery
+            {
+                AuthorId = id
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
 
 
         [HttpDelete("{id}")]
