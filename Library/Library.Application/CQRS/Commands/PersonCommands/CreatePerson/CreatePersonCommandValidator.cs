@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Library.Application.CQRS.Commands.PersonCommands.CreateHuman;
 
 namespace Library.Application.CQRS.Commands.PersonCommands.CreatePerson
 {

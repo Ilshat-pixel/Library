@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Library.Application.CQRS.Querys.AuhtorsQuerys.GetAuthorList
+namespace Library.Application.CQRS.Querys.AuhtorsQuerys
 {
-    public class GetAuthorListQueryVm
+    public class AuthorListVm
     {
         public  IList<AuthorLookupDto> Authors { get; set; }
     }

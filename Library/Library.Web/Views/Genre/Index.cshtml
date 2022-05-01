@@ -1,0 +1,38 @@
+﻿@using Library.Application.CQRS.Querys.GenreQuerys.GetGenreListQuery
+@model GenreListVm
+@{
+    ViewData["Title"] = "Список жанров";
+}
+<h3 class="text-center text-uppercase">Список БИС</h3>
+<p>
+    <a asp-action="Create" class="btn btn-primary rounded-0"><i class="fa fa-plus-circle"></i> Добавить новый жанр</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th class="text-center" scope="col">ID</th>
+            <th class="text-center" scope="col">Жанр</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (@Model.Genres.Count != 0)
+        {
+            @foreach (var item in Model.Genres)
+            {
+                <tr>
+                    @Html.HiddenFor(m => item.Id)
+                    <td class="align-middle text-center">@item.Id</td>
+                    <td class="align-middle text-center">@item.GenreName</td>
+
+                    <td class="align-middle text-center">
+
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" style="border-radius:20%"><i class="fa fa-pencil-alt"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark" style="border-radius:20%"><i class="fa fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

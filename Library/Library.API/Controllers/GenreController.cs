@@ -36,10 +36,6 @@ namespace Library.API.Controllers
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
-        //[HttpGet]
-        //public Task<ActionResult<BooksCountByGenreVm>> GetBooksCountByGenre()
-        //{
 
-        //}
     }
 }

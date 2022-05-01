@@ -2,7 +2,7 @@
 
 namespace Library.Application.CQRS.Querys.AuhtorsQuerys.GetAuthorList
 {
-    public class GetAuthorListQuery:IRequest<GetAuthorListQueryVm>
+    public class GetAuthorListQuery:IRequest<AuthorListVm>
     {
 
     }

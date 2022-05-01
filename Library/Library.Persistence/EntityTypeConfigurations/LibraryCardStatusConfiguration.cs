@@ -15,10 +15,6 @@ namespace Library.Persistence.EntityTypeConfigurations
                 .HasColumnName("name")
                 .IsRequired()
                 .HasMaxLength(25);
-            builder.HasMany(x => x.LibraryCards)
-                .WithOne(x => x.Status)
-                .HasForeignKey(x => x.StatusId)
-                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

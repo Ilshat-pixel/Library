@@ -1,0 +1,56 @@
+﻿@using Library.Application.CQRS.Querys.BookQuerys.GetBookList
+@model BookListVm
+@{
+    ViewData["Title"] = "Список книг";
+ }
+
+<h3 class="text-center text-uppercase">Список книг</h3>
+<p>
+    <a asp-action="Create" class="btn btn-primary rounded-0"><i class="fa fa-plus-circle"></i> Добавить новую книгу</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th class="text-center" scope="col">ID</th>
+            <th class="text-center" scope="col">Название</th>
+            <th class="text-center" scope="col">Автор</th>
+            <th class="text-center" scope="col">Жанры</th>
+            <th class="text-center" scope="col"> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                @Html.HiddenFor(m => item.Id)
+                <th class="align-middle text-center">@item.Id</th>
+                <th class="align-middle text-center">@item.Title</th>
+                <td class="align-middle text-center">@item.Author.Name</td>
+                
+                <td class="align-middle text-center">
+                    @for(var i = 0; i < item.Genres.Count; i++)
+                    {
+                        if (i < item.Genres.Count - 1)
+                        {
+                           <div>
+                                @item.Genres.ElementAt(i).GenreName+" ,"
+                           </div>
+                        }
+                        else
+                        {
+                             <div>
+                                @item.Genres.ElementAt(i).GenreName+"."
+                           </div>
+                        }
+                    }    
+                </td>
+                <td class="align-middle text-center">
+
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" style="border-radius:20%"><i class="fa fa-pencil-alt"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark" style="border-radius:20%"><i class="fa fa-trash-alt"></i></a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

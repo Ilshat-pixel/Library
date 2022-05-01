@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Library.Application.CQRS.Commands.PersonCommands.CreateHuman;
 using Library.Application.CQRS.Commands.PersonCommands.CreatePerson;
 using Library.Application.Interfaces;
 using Library.Domain;

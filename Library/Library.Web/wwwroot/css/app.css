@@ -1,0 +1,49 @@
+﻿.textarea{
+    min-height:200px;
+}
+.auth {
+    width: 265px;
+    height: 335px;
+    margin: 100px auto;
+    border-radius: 10px;
+    background-image: url(../img/LoginImage.png);
+    background-size: contain;
+    text-align:center;
+}
+.avt {
+    width: 231px;
+    height: 40px;
+    left: 594px;
+    top: 301px;
+    /* Header 1 */
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 40px;
+    /* identical to box height */
+    letter-spacing: -0.02em;
+    color: rgba(255, 255, 255, 0.5);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.logpas {
+    width: 94px;
+    height: 34px;
+    left: 567px;
+    top: 401px;
+    font-family: Romanesco;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 34px;
+    text-indent: 3px;
+    color: #000000;
+    mix-blend-mode: normal;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.loginput {
+    width: 220px;
+    height: 50px;
+    background: rgba(207, 217, 245, 0.4);
+    border-radius: 4px;
+}
