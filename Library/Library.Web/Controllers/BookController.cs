@@ -6,12 +6,14 @@ using Library.Application.CQRS.Querys.BookQuerys.GetBookList;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Library.Web.Controllers;
+using Library.Application.CQRS.Querys.AuhtorsQuerys.GetAuthorList;
+using Library.Application.CQRS.Querys.GenreQuerys.GetGenreListQuery;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Library.API.Controllers
 {
-    [ApiController]
-    [Produces("application/json")]
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     public class BookController : BaseController
     {
         private readonly IMapper _mapper;
@@ -72,8 +74,14 @@ namespace Library.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<CreateBookDto> Create()
+        public async Task<ActionResult<CreateBookDto>> Create()
         {
+            var authorListQuery = new GetAuthorListQuery();
+            var authorsList = await Mediator.Send(authorListQuery);
+            var genreListQuery = new GetGenreListQuery();
+            var groupList = await Mediator.Send(genreListQuery);
+            ViewBag.Authors = authorsList.Authors.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            ViewBag.Genres = groupList.Genres.Select(x => new SelectListItem { Text = x.GenreName, Value = x.Id.ToString() }).ToList();
             return View();
         }
 
@@ -84,11 +92,11 @@ namespace Library.API.Controllers
         /// <param name="createBookDto">Dto для создания книги</param>
         /// <returns>Возращает Id книги</returns>
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] CreateBookDto createBookDto)
+        public async Task<ActionResult> Create( CreateBookDto createBookDto)
         {
             var command = _mapper.Map<CreateBookCommand>(createBookDto);
             var bookId = await Mediator.Send(command);
-            return Ok(bookId);
+            return RedirectToAction("Index");
         }
 
     }

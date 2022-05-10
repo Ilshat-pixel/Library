@@ -1,1 +1,39 @@
-﻿
+﻿@using Library.Application.CQRS.Querys.AuhtorsQuerys
+@model AuthorListVm
+@{
+    ViewData["Title"] = "Список авторов";
+ }
+
+<h3 class="text-center text-uppercase">Список авторов</h3>
+<p>
+    <a asp-action="Create" class="btn btn-primary rounded-0"><i class="fa fa-plus-circle"></i> Добавить нового автора</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th class="text-center" scope="col">ID</th>
+            <th class="text-center" scope="col">ФИО автора</th>
+            <th class="text-center" scope="col"> </th>
+            <th class="text-center" scope="col"> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Authors)
+        {
+            <tr>
+                @Html.HiddenFor(m => item.Id)
+                <td class="align-middle text-center">@item.Id</td>
+                <td class="align-middle text-center">@item.Name</td>                
+                <th class="text-center" scope="col"> 
+
+                </th>
+                <td class="align-middle text-center">
+
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" style="border-radius:20%"><i class="fa fa-pencil-alt"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"  class="btn btn-dark" style="border-radius:20%"><i class="fa fa-trash-alt"></i></a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

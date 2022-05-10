@@ -1,3 +1,41 @@
 ﻿@using Library.Web.DTOs.Book
 @model CreateBookDto
-<h1>Добавление книги типо по качто</h1>
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-uppercase">Добавление новой книги</h3>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "Book", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Title, "Название книги", new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger  " })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.GenreId, "Жанр", new { @class = "control-label" })
+                        @Html.DropDownListFor(m=>m.GenreId,  new SelectList(ViewBag.Genres, "Value", "Text"), "Выберите жанр",new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.GenreId, "", new { @class = "text-danger  " })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.AuthorId, "автор", new { @class = "control-label" })
+                        @Html.DropDownListFor(m => m.AuthorId,  new SelectList(ViewBag.Authors, "Value", "Text"), "Выберите автора",new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.AuthorId, "", new { @class = "text-danger  " })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ">
+                <a asp-action="Index" class="btn btn-sm btn-primary rounded-0"><i class="fas fa-fast-backward"></i> К списку книг</a>
+                <button class="btn btn-sm btn-primary rounded-0">Сохранить</button>
+            </div>
+        }
+    </div>
+</div>

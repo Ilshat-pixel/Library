@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Application.CQRS.Commands.AuthorCommands.CreateAuthorCommand
 {
-    public class CreateAuthorCommand:IRequest<IList<int>>
+    public class CreateAuthorCommand:IRequest
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
