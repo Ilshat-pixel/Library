@@ -1,1 +1,45 @@
-﻿
+﻿@using Library.Web.DTOs.Author
+
+@model UpdateAuthorDto
+{
+    @ViewData["Title"] = "Редактирование автора ";
+}
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-uppercase">Редактировать автора</h3>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Update", "Author", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.Id)
+           <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, "Имя", new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger  " })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MiddleName, "Фамилия", new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.MiddleName, "", new { @class = "text-danger  " })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName, "Отчество", new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger  " })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ">
+                <a asp-action="Index" class="btn btn-sm btn-primary rounded-0"><i class="fas fa-fast-backward"></i> К списку авторов</a>
+                <button class="btn btn-sm btn-info rounded-0"><i class="fa fa-pencil-alt"></i>Сохранить</button>
+            </div>
+        }
+    </div>
+</div>
+

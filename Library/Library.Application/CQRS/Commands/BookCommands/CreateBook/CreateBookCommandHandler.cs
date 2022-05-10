@@ -24,6 +24,7 @@ namespace Library.Application.CQRS.Commands.BookCommands.CreateBook
         public async Task<int> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
             var author = await _dbContext.Authors.FindAsync(new object[] { request.AuthorId }, cancellationToken);
+            var genre = await _dbContext.Genres.FindAsync(new object[] { request.GenreId }, cancellationToken);
             if (author == null)
             {
                 throw new NotFoundException(nameof(Person), request.AuthorId);

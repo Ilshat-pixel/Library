@@ -34,7 +34,7 @@ namespace Library.Persistence.Migrations
 
                     b.HasIndex("genre_id");
 
-                    b.ToTable("book_genre");
+                    b.ToTable("book_genre", (string)null);
                 });
 
             modelBuilder.Entity("Library.Domain.Author", b =>

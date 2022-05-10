@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Library.Application.CQRS.Commands.AuthorCommands.CreateAuthorCommand;
 using Library.Application.CQRS.Commands.AuthorCommands.DeleteAuthor;
 using Library.Application.CQRS.Commands.AuthorCommands.UpdateAuthorCommand;
@@ -8,6 +7,7 @@ using Library.Application.CQRS.Querys.AuhtorsQuerys.GetAuthorList;
 using Library.Application.CQRS.Querys.BookQuerys.GetBookList;
 using Library.Web.DTOs.Author;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Library.Web.Controllers
 {
@@ -68,7 +68,7 @@ namespace Library.Web.Controllers
             await Mediator.Send(command);
             return RedirectToAction("Index");
         }
-        [HttpDelete("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var command = new DeleteAuthorCommand
@@ -77,8 +77,6 @@ namespace Library.Web.Controllers
             };
             await Mediator.Send(command);
             return RedirectToAction("Index");
-        }
-
-
+        }     
     }
 }
